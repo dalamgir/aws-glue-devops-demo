@@ -18,9 +18,11 @@
     "--enable-job-insights" : "true",
     "--enable-glue-datacatalog" : "true",
     "--enable-continuous-cloudwatch-log" : "true",
+    "--source.table.name" : "dev_aws_glue_input_data_csv",
     "--job-bookmark-option" : "job-bookmark-enable",
     "--job-language" : "python",
-    "--TempDir" : "s3://aws-glue-assets-754915207637-us-east-2/temporary/"
+    "--TempDir" : "s3://aws-glue-assets-754915207637-us-east-2/temporary/",
+    "--source.database.name" : "devops-db-dev"
   },
   "maxRetries" : 3,
   "allocatedCapacity" : 10,
@@ -30,10 +32,12 @@
   "numberOfWorkers" : 10,
   "workerType" : "G.1X",
   "executionClass" : "STANDARD",
-  "codeGenConfigurationNodes" : "{\"node-1663692770218\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"csv\",\"Inputs\":[\"node-1663692675164\"],\"Name\":\"Amazon S3\",\"PartitionKeys\":[],\"Path\":\"s3://aws-glue-output-data-csv\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1663692675164\":{\"Filter\":{\"Filters\":[{\"Negated\":false,\"Operation\":\"GT\",\"Values\":[{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"release_year\"]},{\"Type\":\"CONSTANT\",\"Value\":[\"2015\"]}]}],\"Inputs\":[\"node-1663692611660\"],\"LogicalOperator\":\"AND\",\"Name\":\"Filter\"}},\"node-1663692611660\":{\"CatalogSource\":{\"Database\":\"devops-db-dev\",\"Name\":\"AWS Glue Data Catalog\",\"Table\":\"dev_aws_glue_input_data_csv\"}}}",
+  "codeGenConfigurationNodes" : "{\"node-1663692770218\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"csv\",\"Inputs\":[\"node-1663692675164\"],\"Name\":\"Amazon S3\",\"PartitionKeys\":[],\"Path\":\"s3://aws-glue-output-data-csv\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1663692675164\":{\"Filter\":{\"Filters\":[{\"Negated\":false,\"Operation\":\"GT\",\"Values\":[{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"release_year\"]},{\"Type\":\"CONSTANT\",\"Value\":[\"2015\"]}]}],\"Inputs\":[\"node-1663692611660\"],\"LogicalOperator\":\"AND\",\"Name\":\"Filter\"}},\"node-1663692611660\":{\"CatalogSource\":{\"Database\":\"${source.database.name}\",\"Name\":\"AWS Glue Data Catalog\",\"Table\":\"${source.table.name}\"}}}",
   "sourceControlDetails" : {
     "provider" : "GITHUB",
     "repository" : "aws-glue-devops-demo",
-    "branch" : "develop"
+    "branch" : "develop",
+    "folder" : "aws-glue-devops-demo-job",
+    "lastCommitId" : "fa4b41519aa126df140db26aff1624399306b405"
   }
 }
