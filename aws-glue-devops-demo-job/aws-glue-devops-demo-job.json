@@ -1,0 +1,39 @@
+{
+  "name" : "aws-glue-devops-demo-job",
+  "description" : "",
+  "role" : "arn:aws:iam::754915207637:role/AWSGlueServiceRoleDefault",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-754915207637-us-east-2/scripts/aws-glue-devops-demo-job.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--class" : "GlueApp",
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-754915207637-us-east-2/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-enable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-754915207637-us-east-2/temporary/"
+  },
+  "maxRetries" : 3,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "3.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1663692770218\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"csv\",\"Inputs\":[\"node-1663692675164\"],\"Name\":\"Amazon S3\",\"PartitionKeys\":[],\"Path\":\"s3://aws-glue-output-data-csv\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1663692675164\":{\"Filter\":{\"Filters\":[{\"Negated\":false,\"Operation\":\"GT\",\"Values\":[{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"release_year\"]},{\"Type\":\"CONSTANT\",\"Value\":[\"2015\"]}]}],\"Inputs\":[\"node-1663692611660\"],\"LogicalOperator\":\"AND\",\"Name\":\"Filter\"}},\"node-1663692611660\":{\"CatalogSource\":{\"Database\":\"devops-db-dev\",\"Name\":\"AWS Glue Data Catalog\",\"Table\":\"dev_aws_glue_input_data_csv\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "aws-glue-devops-demo",
+    "branch" : "develop"
+  }
+}
